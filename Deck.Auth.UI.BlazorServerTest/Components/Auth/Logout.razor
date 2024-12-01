@@ -1,0 +1,15 @@
+﻿@page "/logout"
+
+@inject NavigationManager NavigationManager
+@inject MyAuthStateProvider AuthStateProvider
+
+<h3 class="text">Logging out...</h3>
+
+@code {
+    protected override void OnInitialized()
+    {
+        AuthStateProvider.Logout();
+
+        NavigationManager.NavigateTo("/Login", forceLoad: true);
+    }
+}

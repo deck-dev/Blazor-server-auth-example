@@ -1,0 +1,7 @@
+﻿@page "/user"
+@attribute [Authorize(Policy = "UserPolicy")]
+
+<PageTitle>Utente</PageTitle>
+
+<h3>Protected Page</h3>
+<p>This content is only visible to logged users</p>

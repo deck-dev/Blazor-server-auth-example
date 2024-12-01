@@ -1,0 +1,14 @@
+﻿@inject NavigationManager NavigationManager
+
+@code {
+    [Parameter]
+    public string? Page { get; set; }
+
+    protected override void OnInitialized()
+    {
+        string page = Page is null ? "/login" : Page;
+        if (!page.StartsWith("/")) page = page.Insert(0, "/");
+
+        NavigationManager.NavigateTo(page, forceLoad: true);
+    }
+}

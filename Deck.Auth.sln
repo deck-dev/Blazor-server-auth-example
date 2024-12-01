@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35521.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deck.Auth.Domain", "Deck.Auth.Domain\Deck.Auth.Domain.csproj", "{C452727F-15CC-4F58-8962-855596ACD766}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deck.Auth.Application", "Deck.Auth.Application\Deck.Auth.Application.csproj", "{0FC80CCF-6849-433B-92D7-434C2651A85E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deck.Auth.UI.BlazorServerTest", "Deck.Auth.UI.BlazorServerTest\Deck.Auth.UI.BlazorServerTest.csproj", "{1F8EA848-B798-4CF3-AF8A-E4FF2AA72BCD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C452727F-15CC-4F58-8962-855596ACD766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C452727F-15CC-4F58-8962-855596ACD766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C452727F-15CC-4F58-8962-855596ACD766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C452727F-15CC-4F58-8962-855596ACD766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FC80CCF-6849-433B-92D7-434C2651A85E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FC80CCF-6849-433B-92D7-434C2651A85E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FC80CCF-6849-433B-92D7-434C2651A85E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FC80CCF-6849-433B-92D7-434C2651A85E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F8EA848-B798-4CF3-AF8A-E4FF2AA72BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F8EA848-B798-4CF3-AF8A-E4FF2AA72BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F8EA848-B798-4CF3-AF8A-E4FF2AA72BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F8EA848-B798-4CF3-AF8A-E4FF2AA72BCD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

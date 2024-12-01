@@ -1,0 +1,58 @@
+﻿@inject MyAuthStateProvider AuthStateProvider
+
+<nav class="navbar" role="navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/home">
+            <figure class="image is-48x48">
+                <img style="max-height:none" class="is-rounded" src="images/deck-logo.png" />
+            </figure>
+        </a>
+        <a role="button" class="navbar-burger @navBarCss" data-target="navbarBasicExample" @onclick="ToggleNavBar">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu @navBarCss">
+
+        <div class="navbar-start">
+            <NavLink Match="NavLinkMatch.All" class="navbar-item" href="/home">Home</NavLink>
+            <NavLink Match="NavLinkMatch.All" class="navbar-item" href="/user">Utente</NavLink>
+            <NavLink Match="NavLinkMatch.All" class="navbar-item" href="/admin">Admin</NavLink>
+        </div>
+
+        <div class="navbar-end">
+            <AuthorizeView>
+                <Authorized>
+                    <div class="navbar-item">
+                        @context.User?.Identity?.Name
+                        @* @State.Username *@
+                    </div>
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <NavLink Match="NavLinkMatch.All" class="button is-light" href="/change-password">Cambia password</NavLink>
+                            <NavLink Match="NavLinkMatch.All" class="button is-light" href="/logout">Log out</NavLink>
+                        </div>
+                    </div>
+                </Authorized>
+                <NotAuthorized>
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <NavLink Match="NavLinkMatch.All" class="button is-light" href="/login">Log in</NavLink>
+                        </div>
+                    </div>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+    </div>
+</nav>
+
+@code {
+    string navBarCss => navBarVisible ? "is-active" : "";
+    bool navBarVisible;
+
+    void ToggleNavBar() => navBarVisible = !navBarVisible;
+    void HideNavBar() => navBarVisible = false;
+}

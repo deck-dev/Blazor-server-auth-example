@@ -1,0 +1,80 @@
+﻿@page "/login"
+@layout EmptyLayout
+
+@inject IAuthService AuthService
+@inject MyAuthStateProvider AuthStateProvider
+@inject NavigationManager Navigation
+
+<PageTitle>Login</PageTitle>
+
+<div class="container is-flex is-justify-content-center is-align-items-center">
+    <div class="card" style="width: 100%; max-width: 500px;">
+        <header class="card-header has-background-primary	">
+            <p class="card-header-title">Login</p>
+        </header>
+        <EditForm Model="loginModel" FormName="LoginForm" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="card-content">
+                <div class="content">
+                    <div class="field">
+                        <label class="label">Utente</label>
+                        <div class="control">
+                            <InputText class="input" type="text" @bind-Value="loginModel.Username" placeholder="Utente" />
+                        </div>
+                        @* <p class="help">Inserire utente</p> *@
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <InputText class="input" type="password" @bind-Value="loginModel.Password" placeholder="Password" />
+                        </div>
+                        @* <p class="help">Inserire password</p> *@
+                    </div>
+                </div>
+                @if (errorMsg is not null)
+                {
+                    <div class="content">
+                        <div class="notification is-danger is-light">
+                            <button type="button" class="delete" @onclick="() => errorMsg=null"></button>
+                            @errorMsg
+                        </div>
+                    </div>
+                }
+            </div>
+            <footer class="card-footer">
+                <div class="card-footer-item">
+                    <button class="button is-primary" type="submit">Login</button>
+                </div>
+            </footer>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    LoginModel loginModel = new();
+    string? errorMsg;
+
+    private async Task HandleLogin()
+    {
+        errorMsg = null;
+        var user = await AuthService.Authenticate(loginModel.Username, loginModel.Password);
+        if (user is not null)
+        {
+            var claims = await AuthService.GetUserClaims(user);
+            AuthStateProvider.Login(user, claims);
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            errorMsg = "Login non valido";
+        }
+    }
+
+    private class LoginModel
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
+}
