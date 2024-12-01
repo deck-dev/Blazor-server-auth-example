@@ -66,23 +66,21 @@ namespace Deck.Auth.UI.BlazorServerTest
 
         private static void Initialize(IServiceProvider services)
         {
-            using (var scope = app.Services.CreateScope())
-            {
-                var _ = scope.ServiceProvider.GetRequiredService<IUserRepository>();
-                var authSvc = scope.ServiceProvider.GetRequiredService<IAuthService>();
-                authSvc.RegisterUser("admin", "admin", "Admin").GetAwaiter().GetResult();
-                authSvc.RegisterUser("deck", "1234").GetAwaiter().GetResult();
+            using var scope = services.CreateScope();
+            var _ = scope.ServiceProvider.GetRequiredService<IUserRepository>();
+            var authSvc = scope.ServiceProvider.GetRequiredService<IAuthService>();
+            authSvc.RegisterUser("admin", "admin", "Admin").GetAwaiter().GetResult();
+            authSvc.RegisterUser("deck", "1234").GetAwaiter().GetResult();
 
-                // Add a claim to deck user
-                var usr = authSvc.Authenticate("deck", "1234").GetAwaiter().GetResult();
-                if (usr is not null)
+            // Add a claim to deck user
+            var usr = authSvc.Authenticate("deck", "1234").GetAwaiter().GetResult();
+            if (usr is not null)
+            {
+                authSvc.AddClaim(new UserClaim()
                 {
-                    authSvc.AddClaim(new UserClaim()
-                    {
-                        UserId = usr.UserId,
-                        ClaimName = "Banana"
-                    });
-                }
+                    UserId = usr.UserId,
+                    ClaimName = "Banana"
+                });
             }
         }
     }
