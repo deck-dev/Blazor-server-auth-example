@@ -19,10 +19,13 @@ namespace Deck.Auth.UI.BlazorServerTest
 
             // Add custom services
             string connStr = builder.Configuration.GetConnectionString("UserCN")!;
-            builder.Services.AddSingleton<IUserRepository, SqliteUserRepository>(provider =>
+            builder.Services.AddSingleton<IUserRepository>(provider =>
                 ActivatorUtilities.CreateInstance<SqliteUserRepository>(provider, connStr));
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<MyAuthStateProvider>();
+            // This doesn't work
+            // builder.Services.AddScoped<AuthenticationStateProvider, MyAuthStateProvider>();
+            // This one does
             builder.Services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<MyAuthStateProvider>());
 
             builder.Services.AddAuthentication("MyAuth")

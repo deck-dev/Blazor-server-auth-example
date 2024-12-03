@@ -14,7 +14,7 @@
         </header>
         <EditForm Model="loginModel" FormName="LoginForm" OnValidSubmit="HandleLogin">
             <DataAnnotationsValidator />
-            <ValidationSummary />
+            @* <ValidationSummary /> *@
             <div class="card-content">
                 <div class="content">
                     <div class="field">
@@ -22,7 +22,9 @@
                         <div class="control">
                             <InputText class="input" type="text" @bind-Value="loginModel.Username" placeholder="Utente" />
                         </div>
-                        @* <p class="help">Inserire utente</p> *@
+                        <p class="help is-danger">
+                            <ValidationMessage For="@(() => loginModel.Username)" />
+                        </p>
                     </div>
 
                     <div class="field">
@@ -30,7 +32,9 @@
                         <div class="control">
                             <InputText class="input" type="password" @bind-Value="loginModel.Password" placeholder="Password" />
                         </div>
-                        @* <p class="help">Inserire password</p> *@
+                        <p class="help is-danger">
+                            <ValidationMessage For="@(() => loginModel.Password)" />
+                        </p>
                     </div>
                 </div>
                 @if (errorMsg is not null)
@@ -74,7 +78,14 @@
 
     private class LoginModel
     {
+        [Required(ErrorMessage = "Richiesto nome utente")]
+        [DataType(DataType.Text)]
+        [StringLength(20, ErrorMessage = "Il nome utente deve essere compresa tra i {2} e {1} caratteri", MinimumLength = 4)]
         public string Username { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Richiesto inserimento password")]
+        [DataType(DataType.Password)]
+        [StringLength(20, ErrorMessage = "La password deve essere compresa tra i {2} e {1} caratteri", MinimumLength = 4)]
         public string Password { get; set; } = string.Empty;
     }
 }
